@@ -1,0 +1,196 @@
+<div class="container-fluid">
+  <!-- IMAGEN PRINCIPAL -->
+  <div class="row">
+    <div class="col mainImg"></div>
+  </div>
+  <!-- INICIO -->
+  <div class="row bg-dark">
+    <div class="col-12 text-center text-white my-4">
+      <p>FILTROS</p>
+      <!-- HABITACIONES || BAÑOS || COCHERA -->
+      <div class="row">
+        <!-- Habitaciones -->
+        <div class="col-12 col-md-4">
+          <label for="">Habitaciones</label>
+          <select class="form-select" aria-label="Habitaciones">
+            <option selected>Flexible</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">Más</option>
+          </select>
+        </div>
+        <!-- Baños -->
+        <div class="col-12 col-md-4">
+          <label for="">Baños</label>
+          <select class="form-select" aria-label="Habitaciones">
+            <option value="flex" selected>Flexible</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="mas">Más</option>
+          </select>
+        </div>
+        <!-- Cocheras -->
+        <div class="col-12 col-md-4">
+          <label for="">Cocheras</label>
+          <select class="form-select" aria-label="Habitaciones">
+            <option selected>Flexible</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">Más</option>
+          </select>
+        </div>
+      </div>
+      <!-- ACEPTA MASCOTAS || PATIO || PILETA -->
+      <div class="row my-5">
+        <!-- MASCOTAS -->
+        <div class="col-2">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault"
+            />
+            <label class="form-check-label" for="flexCheckDefault">
+              Acepta Mascotas
+            </label>
+          </div>
+        </div>
+        <!-- PATIO -->
+        <div class="col-2">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault"
+            />
+            <label class="form-check-label" for="flexCheckDefault">
+              Con patio
+            </label>
+          </div>
+        </div>
+        <!-- PILETA -->
+        <div class="col-2">
+          <div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+              />
+              <label class="form-check-label" for="flexCheckDefault">
+                Pileta
+              </label>
+            </div>
+          </div>
+        </div>
+        <!-- MASCOTAS -->
+        <div class="col-2">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault"
+            />
+            <label class="form-check-label" for="flexCheckDefault">
+              Acepta Mascotas
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 text-center text-light">
+      <button class="btn btn-light p-3 my-4 w-75" (click)="handleSearch(1)">
+        Quiero Alquilar
+      </button>
+    </div>
+    <div class="col-sm-12 col-md-6 text-center text-light">
+      <button class="btn btn-light p-3 my-4 w-75" (click)="handleSearch(2)">
+        Quiero Comprar
+      </button>
+    </div>
+  </div>
+  <!-- SPINNER CARGA -->
+  <div *ngIf="loading" class="spinner-border" role="status">
+    <span class="visually-hidden">Cargando resultados...</span>
+  </div>
+  <!-- BUSQUEDA DEL FILTRO -->
+  <div class="row" *ngIf="showResults">
+    <div class="col-12 p-3" style="font-size: 2rem">
+      Resultados de busqueda: "{{ option }}""
+    </div>
+    <div *ngFor="let i of recommendeds" class="col-sm-12 col-md-3 my-2">
+      <div class="card w-100" style="width: 18rem">
+        <img [src]="i.mainImgUrl" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">{{ i.title }}</h5>
+          <p class="card-text">
+            {{ i.description }}
+          </p>
+          <p><strong>Ubicación: </strong>{{ i.location }}</p>
+          <p><strong>Habitaciones: </strong>{{ i.rooms }}</p>
+          <p><strong>Baños: </strong>{{ i.toilets }}</p>
+          <p><strong>Cocheras: </strong>{{ i.garage }}</p>
+          <p>
+            <strong>Acepta Mascotas: </strong>{{ i.acceptPets ? "Si" : "No" }}
+          </p>
+          <a href="#" class="btn btn-primary w-100">Ver más fotos</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- RECOMENDADOS -->
+  <div class="row">
+    <div class="col-12 p-3" style="font-size: 2rem">Recomendados</div>
+    <div *ngFor="let i of recommendeds" class="col-sm-12 col-md-3 my-2">
+      <div class="card w-100" style="width: 18rem">
+        <img [src]="i.mainImgUrl" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">{{ i.title }}</h5>
+          <p class="card-text">
+            {{ i.description }}
+          </p>
+          <p><strong>Ubicación: </strong>{{ i.location }}</p>
+          <p><strong>Habitaciones: </strong>{{ i.rooms }}</p>
+          <p><strong>Baños: </strong>{{ i.toilets }}</p>
+          <p><strong>Cocheras: </strong>{{ i.garage }}</p>
+          <p>
+            <strong>Acepta Mascotas: </strong>{{ i.acceptPets ? "Si" : "No" }}
+          </p>
+          <a href="#" class="btn btn-primary w-100">Ver más fotos</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- RECIENTES -->
+  <div class="row">
+    <div class="col-12 p-3" style="font-size: 2rem">Recomendados</div>
+    <div *ngFor="let i of recommendeds" class="col-sm-12 col-md-3 my-2">
+      <div class="card w-100" style="width: 18rem">
+        <img [src]="i.mainImgUrl" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">{{ i.title }}</h5>
+          <p class="card-text">
+            {{ i.description }}
+          </p>
+          <p><strong>Ubicación: </strong>{{ i.location }}</p>
+          <p><strong>Habitaciones: </strong>{{ i.rooms }}</p>
+          <p><strong>Baños: </strong>{{ i.toilets }}</p>
+          <p><strong>Cocheras: </strong>{{ i.garage }}</p>
+          <p>
+            <strong>Acepta Mascotas: </strong>{{ i.acceptPets ? "Si" : "No" }}
+          </p>
+          <a href="#" class="btn btn-primary w-100">Ver más fotos</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
