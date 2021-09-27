@@ -13,13 +13,17 @@ export class HomeComponent implements OnInit {
   loading = false;
 
   recommendeds: any = [];
+  recents: any = [];
   option = '';
 
-  ngOnInit(): void {
-    this.recommendeds = this.propertiesService.getRecommendeds();
+  async ngOnInit(): Promise<void> {
+    this.recommendeds = await this.propertiesService.getRecommendeds();
+    this.recents = await this.propertiesService.getRecents();
   }
 
   handleSearch(type: number) {
+    this.propertiesService.addProperties();
+
     this.loading = true;
 
     this.showResults = true;
@@ -27,5 +31,9 @@ export class HomeComponent implements OnInit {
     this.loading = false;
 
     this.option = type == 1 ? 'Alquilar' : 'Vender';
+  }
+
+  handleAddImg() {
+    this.propertiesService.addImg(new File(['asd'], 'asd'));
   }
 }
