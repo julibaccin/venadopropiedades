@@ -2,7 +2,14 @@ import { Injectable } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
 import { Storage } from '@angular/fire/storage';
 import { collection, addDoc, getDocs } from '@firebase/firestore';
-import { ref, uploadString, getStorage, uploadBytes } from '@firebase/storage';
+import {
+  ref,
+  uploadString,
+  getStorage,
+  uploadBytes,
+  getDownloadURL,
+} from '@firebase/storage';
+import { AuthService } from './auth.service';
 
 interface Properties {
   title: String;
@@ -23,7 +30,11 @@ interface Properties {
   providedIn: 'root',
 })
 export class PropertiesService {
-  constructor(private firestore: Firestore, private storage: Storage) {}
+  constructor(
+    private firestore: Firestore,
+    private storage: Storage,
+    private auth: AuthService
+  ) {}
 
   async getRecommendeds() {
     const recommendeds: any = [];
@@ -31,7 +42,7 @@ export class PropertiesService {
       collection(this.firestore, 'properties')
     );
     querySnapshot.forEach((doc) => {
-      recommendeds.push(doc.data());
+      recommendeds.push({ ...doc.data(), id: doc.id });
     });
     return recommendeds;
   }
@@ -42,18 +53,33 @@ export class PropertiesService {
       collection(this.firestore, 'properties')
     );
     querySnapshot.forEach((doc) => {
-      recents.push(doc.data());
+      recents.push({ ...doc.data(), id: doc.id });
     });
     return recents;
   }
 
   async addProperty(property: Properties) {
-    await addDoc(collection(this.firestore, 'properties'), property);
+    await addDoc(collection(this.firestore, 'properties'), {
+      ...property,
+      uid: this.auth.getCurrentUser()?.uid,
+    });
   }
 
-  async addImg(img: File): Promise<string> {
-    const storageRef = ref(this.storage, '/images/' + img.name);
-    const imgd = await uploadBytes(storageRef, img);
-    return imgd.ref.fullPath;
+  async addImg(category: string, imgs: File[]): Promise<any> {
+    const paths: string[] = [];
+    let uid = this.auth.getCurrentUser()?.uid;
+
+    for (let img of imgs) {
+      const storageRef = ref(
+        this.storage,
+        `/images/${uid}/${category}/${img.name}`
+      );
+      const imgd = await uploadBytes(storageRef, img);
+      const refImage = ref(this.storage, imgd.ref.fullPath);
+      console.log(refImage);
+      paths.push(await getDownloadURL(refImage));
+    }
+
+    return paths;
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertsService } from 'src/app/services/alerts.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -17,18 +18,23 @@ export class LoginComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private alert: AlertsService
   ) {}
 
   ngOnInit(): void {}
 
   async handleLogin() {
-    if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value;
-      await this.auth.login(email, password);
-      this.router.navigateByUrl('/panel');
-    } else {
-      console.log('Formulario invalido');
+    try {
+      if (this.loginForm.valid) {
+        const { email, password } = this.loginForm.value;
+        await this.auth.login(email, password);
+        this.router.navigateByUrl('/panel');
+      } else {
+        this.alert.error('Formulario inválido');
+      }
+    } catch (error) {
+      this.alert.error('Usuario o contraseña incorrecto');
     }
   }
 }

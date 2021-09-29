@@ -6,7 +6,16 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
 } from '@firebase/auth';
-import { collection, addDoc, doc, setDoc } from '@firebase/firestore';
+import {
+  collection,
+  doc,
+  setDoc,
+  getDocs,
+  getDoc,
+  documentId,
+  where,
+  query,
+} from '@firebase/firestore';
 
 interface Profile {
   title: String;
@@ -27,6 +36,14 @@ export class AuthService {
     return getAuth(this.auth.app).currentUser;
   }
 
+  async getProfile() {
+    const uid = this.getCurrentUser()?.uid;
+    if (uid) {
+      return (await getDoc(doc(this.firestore, 'profile', uid))).data();
+    }
+    return undefined;
+  }
+
   async login(email: string, password: string) {
     await signInWithEmailAndPassword(this.auth, email, password);
   }
@@ -41,5 +58,18 @@ export class AuthService {
       const profileRef = doc(this.firestore, 'profile', uid);
       setDoc(profileRef, profile, { merge: true });
     }
+  }
+
+  async getMyProperties() {
+    const myProperties: any = [];
+    const queryFilter = query(
+      collection(this.firestore, 'properties'),
+      where('uid', '==', this.getCurrentUser()?.uid)
+    );
+    const querySnapshot = await getDocs(queryFilter);
+    querySnapshot.forEach((doc) => {
+      myProperties.push({ ...doc.data(), id: doc.id });
+    });
+    return myProperties;
   }
 }

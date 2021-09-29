@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
     this.recommendeds = await this.propertiesService.getRecommendeds();
     this.recents = await this.propertiesService.getRecents();
   }
-  
+
   handleSearch(type: number) {
     this.loading = true;
 
@@ -29,9 +29,5 @@ export class HomeComponent implements OnInit {
     this.loading = false;
 
     this.option = type == 1 ? 'Alquilar' : 'Vender';
-  }
-
-  handleAddImg() {
-    this.propertiesService.addImg(new File(['asd'], 'asd'));
   }
 }

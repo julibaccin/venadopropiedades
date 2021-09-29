@@ -3,7 +3,7 @@
 }
 .mainImg {
   background-color: rgba(0, 0, 0, 0.8);
-  background-image: url(https://cdn.pixabay.com/photo/2014/05/03/01/04/city-336708_960_720.jpg);
+  background-image: url("../../../assets/mainImage.jfif");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;

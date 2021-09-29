@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertsService } from 'src/app/services/alerts.service';
 import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-register',
@@ -17,24 +18,26 @@ export class RegisterComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private alert: AlertsService
   ) {}
 
   async handleRegister() {
-    const { email, password, passwordRepeat } = this.registerForm.value;
-
-    if (this.registerForm.invalid) {
-      console.log('Formulario Invalido');
-      return;
+    try {
+      const { email, password, passwordRepeat } = this.registerForm.value;
+      if (this.registerForm.invalid) {
+        this.alert.error('Formulario Invalido');
+        return;
+      }
+      if (password !== passwordRepeat) {
+        this.alert.error('Las contraseñas no coinciden');
+        return;
+      }
+      await this.auth.register(email, password);
+      this.router.navigateByUrl('/panel');
+    } catch (error) {
+      this.alert.error('Ups ocurrió un error');
     }
-
-    if (password !== passwordRepeat) {
-      console.log('Las contraseñas no coinciden');
-      return;
-    }
-
-    await this.auth.register(email, password);
-    this.router.navigateByUrl('/panel');
   }
 
   ngOnInit(): void {}

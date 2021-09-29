@@ -5,8 +5,8 @@
       <div class="row text-center text-white">
         <div class="col">
           <br />
-          <h1 class="p-5 text-dark">VENADO PROPIEDADES</h1>
-          <p class="text-dark" style="font-size: 25px">
+          <h1 class="p-5">VENADO PROPIEDADES</h1>
+          <p style="font-size: 25px">
             <strong
               >Encontrá lo que estás buscando. Ahorrá cientos de llamados a
               inmobiliarias.</strong
@@ -18,9 +18,9 @@
     </div>
   </div>
   <!-- INICIO -->
-  <div class="row bg-dark">
+  <div class="row bg-dark p-3">
     <div class="col-12 text-center text-white my-4">
-      <p>FILTROS</p>
+      <h3 class="mb-4"><strong>--- FILTROS ---</strong></h3>
       <!-- HABITACIONES || BAÑOS || COCHERA -->
       <div class="row">
         <!-- Habitaciones -->
@@ -126,9 +126,7 @@
       </button>
     </div>
     <div class="col-sm-12 col-md-6 text-center text-light">
-      <button class="btn btn-light p-3 my-4 w-75" (click)="handleAddImg()">
-        Quiero Comprar
-      </button>
+      <button class="btn btn-light p-3 my-4 w-75">Quiero Comprar</button>
     </div>
   </div>
   <!-- SPINNER CARGA -->
@@ -142,7 +140,7 @@
     </div>
     <div *ngFor="let i of recommendeds" class="col-sm-12 col-md-3 my-2">
       <div class="card w-100" style="width: 18rem">
-        <img [src]="i.mainImgUrl" class="card-img-top" alt="..." />
+        <img [src]="i.urlPhotos[0]" class="card-img-top" alt="..." />
         <div class="card-body">
           <h5 class="card-title">{{ i.title }}</h5>
           <p class="card-text">
@@ -155,17 +153,24 @@
           <p>
             <strong>Acepta Mascotas: </strong>{{ i.acceptPets ? "Si" : "No" }}
           </p>
-          <a href="#" class="btn btn-primary w-100">Ver más fotos</a>
+          <a
+            [routerLink]="'/detalle/' + i.id"
+            [state]="i"
+            class="btn btn-primary w-100"
+            >Ver más fotos</a
+          >
         </div>
       </div>
     </div>
   </div>
   <!-- RECOMENDADOS -->
   <div class="row">
-    <div class="col-12 p-3" style="font-size: 2rem">Recomendados</div>
+    <div class="col-12 p-3" style="font-size: 2rem">
+      <strong>Recomendados</strong>
+    </div>
     <div *ngFor="let i of recommendeds" class="col-sm-12 col-md-3 my-2">
       <div class="card w-100" style="width: 18rem">
-        <img [src]="i.mainImgUrl" class="card-img-top" alt="..." />
+        <img [src]="i.urlPhotos[0]" class="card-img-top" alt="..." />
         <div class="card-body">
           <h5 class="card-title">{{ i.title }}</h5>
           <p class="card-text">
@@ -178,17 +183,24 @@
           <p>
             <strong>Acepta Mascotas: </strong>{{ i.acceptPets ? "Si" : "No" }}
           </p>
-          <a href="#" class="btn btn-primary w-100">Ver más fotos</a>
+          <a
+            [routerLink]="'/detalle/' + i.id"
+            [state]="i"
+            class="btn btn-primary w-100"
+            >Ver más fotos</a
+          >
         </div>
       </div>
     </div>
   </div>
   <!-- RECIENTES -->
   <div class="row">
-    <div class="col-12 p-3" style="font-size: 2rem">Recomendados</div>
+    <div class="col-12 p-3" style="font-size: 2rem">
+      <strong>Recientes</strong>
+    </div>
     <div *ngFor="let i of recommendeds" class="col-sm-12 col-md-3 my-2">
       <div class="card w-100" style="width: 18rem">
-        <img [src]="i.mainImgUrl" class="card-img-top" alt="..." />
+        <img [src]="i.urlPhotos[0]" class="card-img-top" alt="..." />
         <div class="card-body">
           <h5 class="card-title">{{ i.title }}</h5>
           <p class="card-text">
@@ -201,7 +213,12 @@
           <p>
             <strong>Acepta Mascotas: </strong>{{ i.acceptPets ? "Si" : "No" }}
           </p>
-          <a href="#" class="btn btn-primary w-100">Ver más fotos</a>
+          <a
+            [routerLink]="'/detalle/' + i.id"
+            [state]="i"
+            class="btn btn-primary w-100"
+            >Ver más fotos</a
+          >
         </div>
       </div>
     </div>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AlertsService } from 'src/app/services/alerts.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { PropertiesService } from 'src/app/services/properties.service';
 
 @Component({
   selector: 'app-panel',
@@ -9,8 +11,15 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class PanelComponent implements OnInit {
   profileForm: FormGroup;
-
-  constructor(private fb: FormBuilder, private auth: AuthService) {
+  propertyForm: FormGroup;
+  properties: any = [];
+  files: any = [];
+  constructor(
+    private fb: FormBuilder,
+    private auth: AuthService,
+    private alert: AlertsService,
+    private property: PropertiesService
+  ) {
     this.profileForm = this.fb.group({
       title: ['', [Validators.required]],
       description: [''],
@@ -19,16 +28,63 @@ export class PanelComponent implements OnInit {
       whatsapp: [''],
       urlImg: [''],
     });
+    this.propertyForm = this.fb.group({
+      title: ['', [Validators.required]],
+      description: [''],
+      location: [''],
+      prize: [0],
+      type: [1],
+      rooms: [1],
+      garage: [0],
+      toilets: [1],
+      acceptPets: [0],
+      havePlayground: [0],
+    });
   }
 
-  ngOnInit(): void {}
+  async ngOnInit(): Promise<void> {
+    await this.getProfile();
+    await this.getProperties();
+  }
+
+  async getProperties() {
+    this.properties = await this.auth.getMyProperties();
+  }
+
+  async getProfile() {
+    let profile = await this.auth.getProfile();
+    if (profile) this.profileForm.patchValue(profile);
+  }
 
   async handleRefreshProfile() {
     if (this.profileForm.invalid) {
-      console.log('FORM REFRESH PROFILE INVALID');
+      this.alert.error('Formulario Invalido');
       return;
     }
-
     await this.auth.createOrUpdateProfile(this.profileForm.value);
+    this.alert.success('Actualización correcta');
+  }
+
+  async uploadFile(event: Event) {
+    const element = event.currentTarget as HTMLInputElement;
+    let fileList: FileList | null = element.files;
+    if (fileList) {
+      const propertyValues = Object.values(fileList);
+      this.files = propertyValues;
+    }
+  }
+
+  async handleCreateProperty() {
+    // Upload images
+    const urls = await this.property.addImg('properties', this.files);
+    //
+    console.log('URLS CARGADAS', urls);
+    await this.property.addProperty({
+      ...this.propertyForm.value,
+      urlPhotos: urls,
+    });
+    await this.getProperties();
+    this.alert.success('Propiedad cargada');
+    this.profileForm.reset();
   }
 }

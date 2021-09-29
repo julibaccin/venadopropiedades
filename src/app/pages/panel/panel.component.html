@@ -55,61 +55,81 @@
   <div class="row my-5">
     <div class="col-sm-12 col-md-6">
       <h1>Gestion de propiedades</h1>
-      <form action="">
+      <form
+        (ngSubmit)="handleCreateProperty()"
+        [formGroup]="propertyForm"
+        action=""
+      >
         <!-- Titulo -->
         <div class="input-group mb-3 w-100">
           <span class="input-group-text" id="basic-addon1">Título</span>
-          <input type="text" class="form-control" />
+          <input formControlName="title" type="text" class="form-control" />
         </div>
         <!-- Descripcion -->
         <div class="input-group mb-3 w-100">
           <span class="input-group-text" id="basic-addon1">Descripcion</span>
-          <input type="text" class="form-control" />
+          <input
+            formControlName="description"
+            type="text"
+            class="form-control"
+          />
         </div>
         <!-- Direccion -->
         <div class="input-group mb-3 w-100">
           <span class="input-group-text" id="basic-addon1">Direccion</span>
-          <input type="text" class="form-control" />
+          <input formControlName="location" type="text" class="form-control" />
         </div>
         <!-- Precio -->
         <div class="input-group mb-3 w-100">
           <span class="input-group-text" id="basic-addon1">Precio</span>
-          <input type="text" class="form-control" />
+          <input formControlName="prize" type="number" class="form-control" />
         </div>
         <!-- Habitaciones -->
         <div class="input-group mb-3 w-100">
           <span class="input-group-text" id="basic-addon1">Habitaciones</span>
-          <input type="text" class="form-control" />
-        </div>
-        <!-- Dormitorios -->
-        <div class="input-group mb-3 w-100">
-          <span class="input-group-text" id="basic-addon1">Dormitorios</span>
-          <input type="text" class="form-control" />
+          <input formControlName="rooms" type="number" class="form-control" />
         </div>
         <!-- Cocheras -->
         <div class="input-group mb-3 w-100">
           <span class="input-group-text" id="basic-addon1">Cocheras</span>
-          <input type="text" class="form-control" />
-        </div>
-        <!-- Tiene Patio -->
-        <div class="input-group mb-3 w-100">
-          <span class="input-group-text" id="basic-addon1">Patio</span>
-          <input type="text" class="form-control" />
-        </div>
-        <!-- Tiene Pileta -->
-        <div class="input-group mb-3 w-100">
-          <span class="input-group-text" id="basic-addon1">Pileta</span>
-          <input type="text" class="form-control" />
-        </div>
-        <!-- Acepta Mascotas -->
-        <div class="input-group mb-3 w-100">
-          <span class="input-group-text" id="basic-addon1"
-            >Acepta Mascotas</span
-          >
-          <input type="text" class="form-control" />
+          <input formControlName="garage" type="number" class="form-control" />
         </div>
 
-        <button class="btn btn-success w-100">Cargar</button>
+        <!-- FOTOS -->
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1"
+            >Cargué hasta 3 imagenes</span
+          >
+          <input
+            (change)="uploadFile($event)"
+            type="file"
+            class="form-control"
+            multiple
+          />
+        </div>
+
+        <!-- Tiene patio -->
+        <label class="my-2" for="">Tiene patio</label>
+        <select
+          formControlName="havePlayground"
+          class="form-select"
+          aria-label="Acepta mascotas"
+        >
+          <option value="0">NO</option>
+          <option value="1">SI</option>
+        </select>
+        <!-- Acepta Mascotas -->
+        <label class="my-2" for="">Acepta Mascotas</label>
+        <select
+          formControlName="acceptPets"
+          class="form-select"
+          aria-label="Acepta mascotas"
+        >
+          <option value="0">NO</option>
+          <option value="1">SI</option>
+        </select>
+
+        <button class="btn btn-success w-100 mt-3">Cargar</button>
       </form>
     </div>
 
@@ -121,26 +141,51 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">Title</th>
-              <th scope="col">Location</th>
-              <th scope="col">Habitaciones</th>
+              <th scope="col">Titulo</th>
+              <th scope="col">Dirección</th>
+              <th scope="col">Acciones</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry the Bird</td>
-              <td>Larry the Bird</td>
+            <tr *ngFor="let i of properties">
+              <th scope="row">{{ i.title }}</th>
+              <td>{{ i.location }}</td>
+              <td>
+                <div class="d-flex">
+                  <button class="btn btn-danger">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-trash"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"
+                      />
+                      <path
+                        fill-rule="evenodd"
+                        d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                      />
+                    </svg>
+                  </button>
+                  <button class="btn btn-primary mx-1">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-pencil"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
