@@ -20,10 +20,8 @@ export class HomeComponent implements OnInit {
     this.recommendeds = await this.propertiesService.getRecommendeds();
     this.recents = await this.propertiesService.getRecents();
   }
-
+  
   handleSearch(type: number) {
-    this.propertiesService.addProperties();
-
     this.loading = true;
 
     this.showResults = true;

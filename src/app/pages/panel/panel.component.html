@@ -1,13 +1,51 @@
 <div class="container-fluid">
   <!-- DATOS EMPRESA  -->
-  <div class="row my-5 text-center">
-    <div class="col">
-      <h1>Nombre de la empresa</h1>
-      <h2>Descripcion de la empresa</h2>
-      <h3>Dirección</h3>
-      <h3>Telefono</h3>
-      <h3>Whatsapp LINQ</h3>
-      <h6>Redes sociales</h6>
+  <div class="row my-5">
+    <h1>Bienvenido, Tus datos son:</h1>
+    <div class="col-12 text-center">
+      <form
+        [formGroup]="profileForm"
+        (ngSubmit)="handleRefreshProfile()"
+        action=""
+      >
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1"
+            >Nombre de la empresa</span
+          >
+          <input formControlName="title" type="text" class="form-control" />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1"
+            >Descripcion de la empresa</span
+          >
+          <input
+            formControlName="description"
+            type="text"
+            class="form-control"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Dirección</span>
+          <input formControlName="location" type="text" class="form-control" />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Telefono</span>
+          <input formControlName="phone" type="number" class="form-control" />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Whatsapp LINQ</span>
+          <input
+            formControlName="whatsapp"
+            type="number"
+            class="form-control"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Imagen</span>
+          <input formControlName="urlImg" type="file" class="form-control" />
+        </div>
+        <button class="btn btn-primary" type="submit">Actualizar Datos</button>
+      </form>
     </div>
   </div>
 
@@ -15,7 +53,8 @@
 
   <!-- CARGAR PROPIEDAD -->
   <div class="row my-5">
-    <div class="col-6">
+    <div class="col-sm-12 col-md-6">
+      <h1>Gestion de propiedades</h1>
       <form action="">
         <!-- Titulo -->
         <div class="input-group mb-3 w-100">
@@ -75,6 +114,37 @@
     </div>
 
     <!-- VER PROPIEDADES -->
-    <div class="col-6">Mis propiedades</div>
+
+    <div class="col-sm-12 col-md-6">
+      <h1>Mis propiedades</h1>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Location</th>
+              <th scope="col">Habitaciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Larry the Bird</td>
+              <td>Larry the Bird</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
