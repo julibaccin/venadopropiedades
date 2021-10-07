@@ -1,7 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Firestore } from '@angular/fire/firestore';
+import { doc, Firestore } from '@angular/fire/firestore';
 import { Storage } from '@angular/fire/storage';
-import { collection, addDoc, getDocs } from '@firebase/firestore';
+import {
+  collection,
+  addDoc,
+  getDocs,
+  getDoc,
+  deleteDoc,
+  setDoc,
+} from '@firebase/firestore';
 import {
   ref,
   uploadString,
@@ -47,6 +54,11 @@ export class PropertiesService {
     return recommendeds;
   }
 
+  async getProperty(id: string) {
+    let docSearch = await getDoc(doc(this.firestore, 'properties/' + id));
+    return docSearch.data();
+  }
+
   async getRecents() {
     const recents: any = [];
     const querySnapshot = await getDocs(
@@ -61,6 +73,7 @@ export class PropertiesService {
   async addProperty(property: Properties) {
     await addDoc(collection(this.firestore, 'properties'), {
       ...property,
+      active: true,
       uid: this.auth.getCurrentUser()?.uid,
     });
   }
@@ -81,5 +94,14 @@ export class PropertiesService {
     }
 
     return paths;
+  }
+
+  async changeActive(property: any) {
+    const propertyRef = doc(this.firestore, 'properties/' + property.id);
+    await setDoc(propertyRef, { active: !property.active }, { merge: true });
+  }
+
+  async deleteProperty(property: any) {
+    await deleteDoc(doc(this.firestore, 'properties/' + property.id));
   }
 }

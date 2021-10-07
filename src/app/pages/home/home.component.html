@@ -139,8 +139,12 @@
       Resultados de busqueda: "{{ option }}""
     </div>
     <div *ngFor="let i of recommendeds" class="col-sm-12 col-md-3 my-2">
-      <div class="card w-100" style="width: 18rem">
-        <img [src]="i.urlPhotos[0]" class="card-img-top" alt="..." />
+      <div class="card w-100" style="width: 16rem">
+        <img
+          [src]="i.urlPhotos[0] || environment.urlHouse"
+          class="card-img-top"
+          alt="..."
+        />
         <div class="card-body">
           <h5 class="card-title">{{ i.title }}</h5>
           <p class="card-text">
@@ -169,8 +173,12 @@
       <strong>Recomendados</strong>
     </div>
     <div *ngFor="let i of recommendeds" class="col-sm-12 col-md-3 my-2">
-      <div class="card w-100" style="width: 18rem">
-        <img [src]="i.urlPhotos[0]" class="card-img-top" alt="..." />
+      <div class="card w-100" style="width: 16rem">
+        <img
+          [src]="i.urlPhotos[0] || environment.urlHouse"
+          class="card-img-top"
+          alt="..."
+        />
         <div class="card-body">
           <h5 class="card-title">{{ i.title }}</h5>
           <p class="card-text">
@@ -199,8 +207,12 @@
       <strong>Recientes</strong>
     </div>
     <div *ngFor="let i of recommendeds" class="col-sm-12 col-md-3 my-2">
-      <div class="card w-100" style="width: 18rem">
-        <img [src]="i.urlPhotos[0]" class="card-img-top" alt="..." />
+      <div class="card w-100" style="width: 16rem">
+        <img
+          [src]="i.urlPhotos[0] || environment.urlHouse"
+          class="card-img-top"
+          alt="..."
+        />
         <div class="card-body">
           <h5 class="card-title">{{ i.title }}</h5>
           <p class="card-text">

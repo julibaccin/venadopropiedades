@@ -70,6 +70,13 @@ export class PanelComponent implements OnInit {
     let fileList: FileList | null = element.files;
     if (fileList) {
       const propertyValues = Object.values(fileList);
+      if (propertyValues.length > 3) {
+        this.alert.warning(
+          'No puede cargar mas de 3 imagenes, por favor cargue nuevamente las imagenes'
+        );
+        element.value = '';
+        return;
+      }
       this.files = propertyValues;
     }
   }
@@ -78,13 +85,24 @@ export class PanelComponent implements OnInit {
     // Upload images
     const urls = await this.property.addImg('properties', this.files);
     //
-    console.log('URLS CARGADAS', urls);
+
     await this.property.addProperty({
       ...this.propertyForm.value,
       urlPhotos: urls,
     });
     await this.getProperties();
     this.alert.success('Propiedad cargada');
-    this.profileForm.reset();
+    this.propertyForm.reset();
+  }
+
+  async handleDeleteProperty(property: any) {
+    await this.property.deleteProperty(property);
+    this.properties = this.properties.filter((p: any) => p.id != property.id);
+    this.alert.success('Propiedad eliminada con éxito');
+  }
+
+  async handleChangeActive(property: any) {
+    await this.property.changeActive(property);
+    property.active = !property.active;
   }
 }

@@ -24,6 +24,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  async resetPassword() {
+    await this.auth.recoverPassword('julibaccin01@gmail.com');
+    this.alert.success(
+      'Se ha enviado un mail de recuperación, verifique su correo'
+    );
+  }
+
   async handleLogin() {
     try {
       if (this.loginForm.valid) {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PropertiesService } from 'src/app/services/properties.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -8,6 +9,8 @@ import { PropertiesService } from 'src/app/services/properties.service';
 })
 export class HomeComponent implements OnInit {
   constructor(private propertiesService: PropertiesService) {}
+
+  environment = environment;
 
   showResults = false;
   loading = false;
@@ -19,6 +22,7 @@ export class HomeComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.recommendeds = await this.propertiesService.getRecommendeds();
     this.recents = await this.propertiesService.getRecents();
+    console.log(this.recommendeds);
   }
 
   handleSearch(type: number) {

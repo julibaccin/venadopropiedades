@@ -9,15 +9,11 @@
         action=""
       >
         <div class="input-group mb-3">
-          <span class="input-group-text" id="basic-addon1"
-            >Nombre de la empresa</span
-          >
+          <span class="input-group-text" id="basic-addon1">Nombre</span>
           <input formControlName="title" type="text" class="form-control" />
         </div>
         <div class="input-group mb-3">
-          <span class="input-group-text" id="basic-addon1"
-            >Descripcion de la empresa</span
-          >
+          <span class="input-group-text" id="basic-addon1">Descripcion</span>
           <input
             formControlName="description"
             type="text"
@@ -33,16 +29,12 @@
           <input formControlName="phone" type="number" class="form-control" />
         </div>
         <div class="input-group mb-3">
-          <span class="input-group-text" id="basic-addon1">Whatsapp LINQ</span>
+          <span class="input-group-text" id="basic-addon1">Whatsapp LINK</span>
           <input
             formControlName="whatsapp"
             type="number"
             class="form-control"
           />
-        </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text" id="basic-addon1">Imagen</span>
-          <input formControlName="urlImg" type="file" class="form-control" />
         </div>
         <button class="btn btn-primary" type="submit">Actualizar Datos</button>
       </form>
@@ -143,6 +135,7 @@
             <tr>
               <th scope="col">Titulo</th>
               <th scope="col">Dirección</th>
+              <th scope="col">Estado</th>
               <th scope="col">Acciones</th>
             </tr>
           </thead>
@@ -151,8 +144,23 @@
               <th scope="row">{{ i.title }}</th>
               <td>{{ i.location }}</td>
               <td>
+                <button
+                  (click)="handleChangeActive(i)"
+                  class="btn"
+                  [ngClass]="{
+                    'btn-success': i.active,
+                    'btn-danger': !i.active
+                  }"
+                >
+                  {{ i.active ? "Activo" : "In-Activo" }}
+                </button>
+              </td>
+              <td>
                 <div class="d-flex">
-                  <button class="btn btn-danger">
+                  <button
+                    class="btn btn-danger"
+                    (click)="handleDeleteProperty(i)"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"

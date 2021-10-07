@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   getAuth,
+  sendPasswordResetEmail,
 } from '@firebase/auth';
 import {
   collection,
@@ -50,6 +51,10 @@ export class AuthService {
 
   async register(email: string, password: string) {
     await createUserWithEmailAndPassword(this.auth, email, password);
+  }
+
+  async recoverPassword(email: string) {
+    await sendPasswordResetEmail(this.auth, email);
   }
 
   async createOrUpdateProfile(profile: Profile) {
