@@ -45,6 +45,11 @@ export class AuthService {
     return undefined;
   }
 
+  async getProfileOfPost(uid: string) {
+    let profileSearch = await getDoc(doc(this.firestore, 'profile/' + uid));
+    return profileSearch.data();
+  }
+
   async login(email: string, password: string) {
     await signInWithEmailAndPassword(this.auth, email, password);
   }

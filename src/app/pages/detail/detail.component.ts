@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PropertiesService } from 'src/app/services/properties.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -16,9 +17,10 @@ export class DetailComponent implements OnInit {
   constructor(
     private location: Location,
     private activatedRoute: ActivatedRoute,
-    private properties: PropertiesService
+    private properties: PropertiesService,
+    private auth: AuthService
   ) {}
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     const state: any = this.location.getState();
 
     if (!state?.id) {
@@ -29,12 +31,6 @@ export class DetailComponent implements OnInit {
       this.property = state;
     }
 
-    //Obtengo los datos de la empresa
-    this.profile = {
-      title: 'Particular',
-      whatsapp: '3462302916',
-      phone: '3462302916',
-      location: 'Laprida 255',
-    };
+    this.profile = await this.auth.getProfileOfPost(this.property.uid);
   }
 }
