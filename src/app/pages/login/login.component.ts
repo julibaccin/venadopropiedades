@@ -25,10 +25,17 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   async resetPassword() {
-    await this.auth.recoverPassword('julibaccin01@gmail.com');
-    this.alert.success(
-      'Se ha enviado un mail de recuperación, verifique su correo'
-    );
+    try {
+      await this.auth.recoverPassword(this.loginForm.value.email);
+      this.alert.success(
+        'Se ha enviado un mail de recuperación, verifique su correo'
+      );
+    } catch (error) {
+      console.log(error);
+      this.alert.error(
+        'En estos momentos, ésta funcionalidad no está disponible'
+      );
+    }
   }
 
   async handleLogin() {

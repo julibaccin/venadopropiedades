@@ -8,6 +8,8 @@ import {
   getDoc,
   deleteDoc,
   setDoc,
+  where,
+  query,
 } from '@firebase/firestore';
 import {
   ref,
@@ -103,5 +105,22 @@ export class PropertiesService {
 
   async deleteProperty(property: any) {
     await deleteDoc(doc(this.firestore, 'properties/' + property.id));
+  }
+
+  async getPropertysFilter(filter: { key: string; value: number }[]) {
+    const filters: any = [];
+
+    const contructorDeQueyr = filter.map((f) => where(f.key, '==', f.value));
+
+    const queryFilter = query(
+      collection(this.firestore, 'properties'),
+      ...contructorDeQueyr
+    );
+
+    const querySnapshot = await getDocs(queryFilter);
+    querySnapshot.forEach((doc) => {
+      filters.push({ ...doc.data(), id: doc.id });
+    });
+    return filters;
   }
 }

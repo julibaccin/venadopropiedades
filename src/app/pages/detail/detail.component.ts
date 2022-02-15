@@ -26,11 +26,11 @@ export class DetailComponent implements OnInit {
     if (!state?.id) {
       this.activatedRoute.params.subscribe(async (o) => {
         this.property = await this.properties.getProperty(o.id);
+        this.profile = await this.auth.getProfileOfPost(this.property.uid);
       });
     } else {
       this.property = state;
+      this.profile = await this.auth.getProfileOfPost(this.property.uid);
     }
-
-    this.profile = await this.auth.getProfileOfPost(this.property.uid);
   }
 }

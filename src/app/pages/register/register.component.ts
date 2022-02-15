@@ -36,6 +36,7 @@ export class RegisterComponent implements OnInit {
       await this.auth.register(email, password);
       this.router.navigateByUrl('/panel');
     } catch (error) {
+      console.log(error);
       this.alert.error('Ups ocurrió un error');
     }
   }

@@ -121,12 +121,20 @@
       </div> -->
     </div>
     <div class="col-sm-12 col-md-6 text-center text-light">
-      <button class="btn btn-light p-3 my-4 w-75" (click)="handleSearch(1)">
+      <button
+        class="btn btn-light p-3 my-4 w-75"
+        (click)="handleSearch('Alquilar')"
+      >
         Quiero Alquilar
       </button>
     </div>
     <div class="col-sm-12 col-md-6 text-center text-light">
-      <button class="btn btn-light p-3 my-4 w-75">Quiero Comprar</button>
+      <button
+        class="btn btn-light p-3 my-4 w-75"
+        (click)="handleSearch('Vender')"
+      >
+        Quiero Comprar
+      </button>
     </div>
   </div>
   <!-- SPINNER CARGA -->

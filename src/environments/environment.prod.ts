@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   firebaseConfig: {
-    apiKey: 'AIzaSyCveTZsY-M0f-n2o7KPI2z2mdSs03DU23Y',
+    apiKey: 'AIzaSyAw26_usvwR4qhMRJx8TWg1uB5JYoBfLIs',
     authDomain: 'venadopropiedades.firebaseapp.com',
     projectId: 'venadopropiedades',
     storageBucket: 'venadopropiedades.appspot.com',
