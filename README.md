@@ -17,4 +17,4 @@ house.svg
 
 # DEPLOY
 
-ng deploy --base-href=https://julibaccin.github.io/venadopropiedades/
+ng deploy # ESTE FLAG VA SI NO TENGO DOMINIO -> --base-href=https://julibaccin.github.io/venadopropiedades/

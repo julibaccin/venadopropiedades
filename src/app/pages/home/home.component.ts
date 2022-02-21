@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   loading = false;
   recommendeds: any = [];
   recents: any = [];
+  filterPropertys: any = [];
   option = '';
 
   constructor(private propertiesService: PropertiesService) {}
@@ -31,11 +32,11 @@ export class HomeComponent implements OnInit {
     this.loading = true;
     this.option = type;
 
-    await this.propertiesService.getPropertysFilter([
+    const filterPropertys = await this.propertiesService.getPropertysFilter([
       { key: 'garage', value: 5 },
       { key: 'rooms', value: 2 },
     ]);
-
+    this.filterPropertys = filterPropertys;
     this.showResults = true;
     this.loading = false;
   }

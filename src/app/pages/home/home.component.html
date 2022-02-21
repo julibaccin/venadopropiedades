@@ -5,7 +5,7 @@
       <div class="row text-center text-white">
         <div class="col">
           <br />
-          <h1 class="p-5">VENADO PROPIEDADES</h1>
+          <h1 class="mt-5">VENADO PROPIEDADES</h1>
           <p style="font-size: 25px">
             <strong
               >Encontrá lo que estás buscando. Ahorrá cientos de llamados a
@@ -19,8 +19,10 @@
   </div>
   <!-- INICIO -->
   <div class="row bg-dark p-3">
-    <div class="col-12 text-center text-white my-4">
-      <h3 class="mb-4"><strong>--- FILTROS ---</strong></h3>
+    <div class="col-12 text-center text-white my-5">
+      <h3 class="mb-5">
+        <strong>¡FILTRA PARA ENCONTRAR LO QUE BUSCÁS MÁS RAPIDO!</strong>
+      </h3>
       <!-- HABITACIONES || BAÑOS || COCHERA -->
       <div class="row">
         <!-- Habitaciones -->
@@ -120,18 +122,18 @@
         </div>
       </div> -->
     </div>
-    <div class="col-sm-12 col-md-6 text-center text-light">
+    <div class="col-sm-12 offset-md-3 col-md-3 text-center text-light">
       <button
-        class="btn btn-light p-3 my-4 w-75"
+        class="btn btn-primary p-3 my-4 w-75"
         (click)="handleSearch('Alquilar')"
       >
         Quiero Alquilar
       </button>
     </div>
-    <div class="col-sm-12 col-md-6 text-center text-light">
+    <div class="col-sm-12 offset-md-0 col-md-3 text-center text-light">
       <button
-        class="btn btn-light p-3 my-4 w-75"
-        (click)="handleSearch('Vender')"
+        class="btn btn-primary p-3 my-4 w-75"
+        (click)="handleSearch('Comprar')"
       >
         Quiero Comprar
       </button>
@@ -146,7 +148,14 @@
     <div class="col-12 p-3" style="font-size: 2rem">
       Resultados de busqueda: "{{ option }}""
     </div>
-    <div *ngFor="let i of recommendeds" class="col-sm-12 col-md-3 my-2">
+    <div *ngIf="filterPropertys.length == 0">
+      <hr />
+      <h4>Lamentablemente no encontramos propiedades con esos filtros.</h4>
+      <br />
+      <h5>Podés cambiarlos y/o revisar los recomendados y los recientes.</h5>
+      <hr />
+    </div>
+    <div *ngFor="let i of filterPropertys" class="col-sm-12 col-md-3 my-2">
       <div class="card w-100" style="width: 16rem">
         <img
           [src]="i.urlPhotos[0] || environment.urlHouse"
