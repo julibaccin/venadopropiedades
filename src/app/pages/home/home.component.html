@@ -7,10 +7,8 @@
           <br />
           <h1 class="mt-5">VENADO PROPIEDADES</h1>
           <p style="font-size: 25px">
-            <strong
-              >Encontrá lo que estás buscando. Ahorrá cientos de llamados a
-              inmobiliarias.</strong
-            >
+            <strong>Encontrá lo que estás buscando. Ahorrá cientos de llamados a
+              inmobiliarias.</strong>
           </p>
           <br />
         </div>
@@ -28,121 +26,58 @@
         <!-- Habitaciones -->
         <div class="col-12 col-md-4">
           <label for="">Habitaciones</label>
-          <select class="form-select" aria-label="Habitaciones">
-            <option selected>Flexible</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">Más</option>
+          <select [(ngModel)]="rooms" class="form-select" aria-label="Habitaciones">
+            <option value=0 selected>Flexible</option>
+            <option value=1>1</option>
+            <option value=2>2</option>
+            <option value=3>3</option>
+            <option value=4>4</option>
           </select>
         </div>
         <!-- Baños -->
         <div class="col-12 col-md-4">
           <label for="">Baños</label>
-          <select class="form-select" aria-label="Habitaciones">
-            <option value="flex" selected>Flexible</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="mas">Más</option>
+          <select [(ngModel)]="toilets" class="form-select" aria-label="Baños">
+            <option value=0 selected>Flexible</option>
+            <option value=1>1</option>
+            <option value=2>2</option>
+            <option value=3>3</option>
+            <option value=4>4</option>
           </select>
         </div>
         <!-- Cocheras -->
         <div class="col-12 col-md-4">
           <label for="">Cocheras</label>
-          <select class="form-select" aria-label="Habitaciones">
-            <option selected>Flexible</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">Más</option>
+          <select [(ngModel)]="garaje" class="form-select" aria-label="Cocheras">
+            <option value=0 selected>Flexible</option>
+            <option value=1>1</option>
+            <option value=2>2</option>
+            <option value=3>3</option>
+            <option value=4>4</option>
+            <option value=5>5</option>
           </select>
         </div>
       </div>
-      <!-- ACEPTA MASCOTAS || PATIO || PILETA -->
-      <!-- <div class="row my-5">
-        <div class="col-2">
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              id="flexCheckDefault"
-            />
-            <label class="form-check-label" for="flexCheckDefault">
-              Acepta Mascotas
-            </label>
-          </div>
-        </div>
-
-        <div class="col-2">
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              id="flexCheckDefault"
-            />
-            <label class="form-check-label" for="flexCheckDefault">
-              Con patio
-            </label>
-          </div>
-        </div>
-
-        <div class="col-2">
-          <div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                id="flexCheckDefault"
-              />
-              <label class="form-check-label" for="flexCheckDefault">
-                Pileta
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-2">
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              id="flexCheckDefault"
-            />
-            <label class="form-check-label" for="flexCheckDefault">
-              Acepta Mascotas
-            </label>
-          </div>
-        </div>
-      </div> -->
     </div>
     <div class="col-sm-12 offset-md-3 col-md-3 text-center text-light">
-      <button
-        class="btn btn-primary p-3 my-4 w-75"
-        (click)="handleSearch('Alquilar')"
-      >
+      <button class="btn btn-primary p-3 my-4 w-75" (click)="handleSearch('Alquilar')">
         Quiero Alquilar
       </button>
     </div>
     <div class="col-sm-12 offset-md-0 col-md-3 text-center text-light">
-      <button
-        class="btn btn-primary p-3 my-4 w-75"
-        (click)="handleSearch('Comprar')"
-      >
+      <button class="btn btn-primary p-3 my-4 w-75" (click)="handleSearch('Comprar')">
         Quiero Comprar
       </button>
     </div>
   </div>
+
   <!-- SPINNER CARGA -->
-  <div *ngIf="loading" class="spinner-border" role="status">
-    <span class="visually-hidden">Cargando resultados...</span>
+  <div *ngIf="loading" class="text-center p-5">
+    <div class="spinner-border p-3" role="status">
+      <span class="visually-hidden">Cargando resultados...</span>
+    </div>
   </div>
+
   <!-- BUSQUEDA DEL FILTRO -->
   <div class="row" *ngIf="showResults">
     <div class="col-12 p-3" style="font-size: 2rem">
@@ -157,11 +92,7 @@
     </div>
     <div *ngFor="let i of filterPropertys" class="col-sm-12 col-md-3 my-2">
       <div class="card w-100" style="width: 16rem">
-        <img
-          [src]="i.urlPhotos[0] || environment.urlHouse"
-          class="card-img-top"
-          alt="..."
-        />
+        <img [src]="i.urlPhotos[0] || environment.urlHouse" class="card-img-top" alt="..." />
         <div class="card-body">
           <h5 class="card-title">{{ i.title }}</h5>
           <p class="card-text">
@@ -174,12 +105,7 @@
           <p>
             <strong>Acepta Mascotas: </strong>{{ i.acceptPets ? "Si" : "No" }}
           </p>
-          <a
-            [routerLink]="'/detalle/' + i.id"
-            [state]="i"
-            class="btn btn-primary w-100"
-            >Ver más fotos</a
-          >
+          <a [routerLink]="'/detalle/' + i.id" [state]="i" class="btn btn-primary w-100">Ver más fotos</a>
         </div>
       </div>
     </div>
@@ -191,11 +117,7 @@
     </div>
     <div *ngFor="let i of recommendeds" class="col-sm-12 col-md-3 my-2">
       <div class="card w-100" style="width: 16rem">
-        <img
-          [src]="i.urlPhotos[0] || environment.urlHouse"
-          class="card-img-top"
-          alt="..."
-        />
+        <img [src]="i.urlPhotos[0] || environment.urlHouse" class="card-img-top" alt="..." />
         <div class="card-body">
           <h5 class="card-title">{{ i.title }}</h5>
           <p class="card-text">
@@ -208,12 +130,7 @@
           <p>
             <strong>Acepta Mascotas: </strong>{{ i.acceptPets ? "Si" : "No" }}
           </p>
-          <a
-            [routerLink]="'/detalle/' + i.id"
-            [state]="i"
-            class="btn btn-primary w-100"
-            >Ver más fotos</a
-          >
+          <a [routerLink]="'/detalle/' + i.id" [state]="i" class="btn btn-primary w-100">Ver más fotos</a>
         </div>
       </div>
     </div>
@@ -225,11 +142,7 @@
     </div>
     <div *ngFor="let i of recommendeds" class="col-sm-12 col-md-3 my-2">
       <div class="card w-100" style="width: 16rem">
-        <img
-          [src]="i.urlPhotos[0] || environment.urlHouse"
-          class="card-img-top"
-          alt="..."
-        />
+        <img [src]="i.urlPhotos[0] || environment.urlHouse" class="card-img-top" alt="..." />
         <div class="card-body">
           <h5 class="card-title">{{ i.title }}</h5>
           <p class="card-text">
@@ -242,12 +155,7 @@
           <p>
             <strong>Acepta Mascotas: </strong>{{ i.acceptPets ? "Si" : "No" }}
           </p>
-          <a
-            [routerLink]="'/detalle/' + i.id"
-            [state]="i"
-            class="btn btn-primary w-100"
-            >Ver más fotos</a
-          >
+          <a [routerLink]="'/detalle/' + i.id" [state]="i" class="btn btn-primary w-100">Ver más fotos</a>
         </div>
       </div>
     </div>

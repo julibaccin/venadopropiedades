@@ -108,7 +108,9 @@ export class PropertiesService {
   }
 
   async getPropertysFilter(filter: { key: string; value: number }[]) {
+    
     const filters: any = [];
+    filter = filter.filter(f => f.value != 0);
 
     const contructorDeQueyr = filter.map((f) => where(f.key, '==', f.value));
 
