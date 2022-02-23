@@ -14,6 +14,7 @@ export class PanelComponent implements OnInit {
   propertyForm: FormGroup;
   properties: any = [];
   files: any = [];
+
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
@@ -29,7 +30,6 @@ export class PanelComponent implements OnInit {
       urlImg: [''],
     });
     this.propertyForm = this.fb.group({
-      title: ['', [Validators.required]],
       description: [''],
       location: [''],
       prize: [0],
@@ -54,6 +54,11 @@ export class PanelComponent implements OnInit {
   async getProfile() {
     let profile = await this.auth.getProfile();
     if (profile) this.profileForm.patchValue(profile);
+  }
+
+  async handleUpdateClick(property: any) {
+    console.log(property);
+    if (property) this.propertyForm.patchValue(property);
   }
 
   async handleRefreshProfile() {
@@ -104,5 +109,19 @@ export class PanelComponent implements OnInit {
   async handleChangeActive(property: any) {
     await this.property.changeActive(property);
     property.active = !property.active;
+  }
+
+  async handleClearForm() {
+    this.propertyForm.reset({
+      description: [''],
+      location: [''],
+      prize: [0],
+      type: [1],
+      rooms: [1],
+      garage: [0],
+      toilets: [1],
+      acceptPets: [0],
+      havePlayground: [0],
+    });
   }
 }

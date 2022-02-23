@@ -47,16 +47,14 @@
   <div class="row my-5">
     <div class="col-sm-12 col-md-6">
       <h1>Gestion de propiedades</h1>
+      <button (click)="handleClearForm()" class="btn btn-primary my-3">
+        Limpiar Formulario
+      </button>
       <form
         (ngSubmit)="handleCreateProperty()"
         [formGroup]="propertyForm"
         action=""
       >
-        <!-- Titulo -->
-        <div class="input-group mb-3 w-100">
-          <span class="input-group-text" id="basic-addon1">Título</span>
-          <input formControlName="title" type="text" class="form-control" />
-        </div>
         <!-- Descripcion -->
         <div class="input-group mb-3 w-100">
           <span class="input-group-text" id="basic-addon1">Descripcion</span>
@@ -178,7 +176,10 @@
                       />
                     </svg>
                   </button>
-                  <button class="btn btn-primary mx-1">
+                  <button
+                    class="btn btn-primary mx-1"
+                    (click)="handleUpdateClick(i)"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"

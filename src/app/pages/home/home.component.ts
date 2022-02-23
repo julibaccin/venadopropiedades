@@ -13,21 +13,20 @@ enum PropertyType {
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  
   recommendeds: any = [];
   recents: any = [];
   filterPropertys: any = [];
-  
+
   environment = environment;
-  
+
   showResults = false;
   loading = false;
   option = '';
-  
+
   // Filters
   rooms: number = 0;
   toilets: number = 0;
-  garaje: number = 0;
+  garage: number = 0;
 
   constructor(private propertiesService: PropertiesService) {}
 
@@ -42,14 +41,13 @@ export class HomeComponent implements OnInit {
 
     const filterPropertys = await this.propertiesService.getPropertysFilter([
       { key: 'rooms', value: Number(this.rooms) },
-      { key: 'cocheras', value: Number(this.garaje) },
+      { key: 'garage', value: Number(this.garage) },
       { key: 'toilets', value: Number(this.toilets) },
-      { key: 'type', value: type == "Alquilar" ? 1 : 2  }
+      { key: 'type', value: type == 'Alquilar' ? 1 : 2 },
     ]);
 
     this.filterPropertys = filterPropertys;
     this.showResults = true;
     this.loading = false;
   }
-
 }

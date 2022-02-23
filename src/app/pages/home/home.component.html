@@ -7,8 +7,10 @@
           <br />
           <h1 class="mt-5">VENADO PROPIEDADES</h1>
           <p style="font-size: 25px">
-            <strong>Encontrá lo que estás buscando. Ahorrá cientos de llamados a
-              inmobiliarias.</strong>
+            <strong
+              >Encontrá lo que estás buscando. Ahorrá cientos de llamados a
+              inmobiliarias.</strong
+            >
           </p>
           <br />
         </div>
@@ -26,47 +28,85 @@
         <!-- Habitaciones -->
         <div class="col-12 col-md-4">
           <label for="">Habitaciones</label>
-          <select [(ngModel)]="rooms" class="form-select" aria-label="Habitaciones">
-            <option value=0 selected>Flexible</option>
-            <option value=1>1</option>
-            <option value=2>2</option>
-            <option value=3>3</option>
-            <option value=4>4</option>
+          <select
+            [(ngModel)]="rooms"
+            class="form-select"
+            aria-label="Habitaciones"
+          >
+            <option value="0" selected>Flexible</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
           </select>
         </div>
         <!-- Baños -->
         <div class="col-12 col-md-4">
           <label for="">Baños</label>
           <select [(ngModel)]="toilets" class="form-select" aria-label="Baños">
-            <option value=0 selected>Flexible</option>
-            <option value=1>1</option>
-            <option value=2>2</option>
-            <option value=3>3</option>
-            <option value=4>4</option>
+            <option value="0" selected>Flexible</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
           </select>
         </div>
         <!-- Cocheras -->
         <div class="col-12 col-md-4">
           <label for="">Cocheras</label>
-          <select [(ngModel)]="garaje" class="form-select" aria-label="Cocheras">
-            <option value=0 selected>Flexible</option>
-            <option value=1>1</option>
-            <option value=2>2</option>
-            <option value=3>3</option>
-            <option value=4>4</option>
-            <option value=5>5</option>
+          <select
+            [(ngModel)]="garage"
+            class="form-select"
+            aria-label="Cocheras"
+          >
+            <option value="0" selected>Flexible</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
           </select>
         </div>
       </div>
     </div>
     <div class="col-sm-12 offset-md-3 col-md-3 text-center text-light">
-      <button class="btn btn-primary p-3 my-4 w-75" (click)="handleSearch('Alquilar')">
-        Quiero Alquilar
+      <button
+        class="btn btn-primary p-3 my-4 w-75"
+        (click)="handleSearch('Alquilar')"
+      >
+        Quiero Alquilar &nbsp;
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-search"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+          />
+        </svg>
       </button>
     </div>
     <div class="col-sm-12 offset-md-0 col-md-3 text-center text-light">
-      <button class="btn btn-primary p-3 my-4 w-75" (click)="handleSearch('Comprar')">
-        Quiero Comprar
+      <button
+        class="btn btn-primary p-3 my-4 w-75"
+        (click)="handleSearch('Comprar')"
+      >
+        Quiero Comprar &nbsp;
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-search"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+          />
+        </svg>
       </button>
     </div>
   </div>
@@ -92,12 +132,13 @@
     </div>
     <div *ngFor="let i of filterPropertys" class="col-sm-12 col-md-3 my-2">
       <div class="card w-100" style="width: 16rem">
-        <img [src]="i.urlPhotos[0] || environment.urlHouse" class="card-img-top" alt="..." />
+        <img
+          [src]="i.urlPhotos[0] || environment.urlHouse"
+          class="card-img-top"
+          alt="..."
+        />
         <div class="card-body">
-          <h5 class="card-title">{{ i.title }}</h5>
-          <p class="card-text">
-            {{ i.description }}
-          </p>
+          <h5 class="card-title">{{ i.description }}</h5>
           <p><strong>Ubicación: </strong>{{ i.location }}</p>
           <p><strong>Habitaciones: </strong>{{ i.rooms }}</p>
           <p><strong>Baños: </strong>{{ i.toilets }}</p>
@@ -105,7 +146,12 @@
           <p>
             <strong>Acepta Mascotas: </strong>{{ i.acceptPets ? "Si" : "No" }}
           </p>
-          <a [routerLink]="'/detalle/' + i.id" [state]="i" class="btn btn-primary w-100">Ver más fotos</a>
+          <a
+            [routerLink]="'/detalle/' + i.id"
+            [state]="i"
+            class="btn btn-primary w-100"
+            >Ver más fotos</a
+          >
         </div>
       </div>
     </div>
@@ -117,12 +163,14 @@
     </div>
     <div *ngFor="let i of recommendeds" class="col-sm-12 col-md-3 my-2">
       <div class="card w-100" style="width: 16rem">
-        <img [src]="i.urlPhotos[0] || environment.urlHouse" class="card-img-top" alt="..." />
+        <img
+          [src]="i.urlPhotos[0] || environment.urlHouse"
+          class="card-img-top"
+          alt="..."
+        />
         <div class="card-body">
-          <h5 class="card-title">{{ i.title }}</h5>
-          <p class="card-text">
-            {{ i.description }}
-          </p>
+          <h5 class="card-title">{{ i.description }}</h5>
+          <br />
           <p><strong>Ubicación: </strong>{{ i.location }}</p>
           <p><strong>Habitaciones: </strong>{{ i.rooms }}</p>
           <p><strong>Baños: </strong>{{ i.toilets }}</p>
@@ -130,7 +178,12 @@
           <p>
             <strong>Acepta Mascotas: </strong>{{ i.acceptPets ? "Si" : "No" }}
           </p>
-          <a [routerLink]="'/detalle/' + i.id" [state]="i" class="btn btn-primary w-100">Ver más fotos</a>
+          <a
+            [routerLink]="'/detalle/' + i.id"
+            [state]="i"
+            class="btn btn-primary w-100"
+            >Ver más fotos</a
+          >
         </div>
       </div>
     </div>
@@ -142,12 +195,13 @@
     </div>
     <div *ngFor="let i of recommendeds" class="col-sm-12 col-md-3 my-2">
       <div class="card w-100" style="width: 16rem">
-        <img [src]="i.urlPhotos[0] || environment.urlHouse" class="card-img-top" alt="..." />
+        <img
+          [src]="i.urlPhotos[0] || environment.urlHouse"
+          class="card-img-top"
+          alt="..."
+        />
         <div class="card-body">
-          <h5 class="card-title">{{ i.title }}</h5>
-          <p class="card-text">
-            {{ i.description }}
-          </p>
+          <h5 class="card-title">{{ i.description }}</h5>
           <p><strong>Ubicación: </strong>{{ i.location }}</p>
           <p><strong>Habitaciones: </strong>{{ i.rooms }}</p>
           <p><strong>Baños: </strong>{{ i.toilets }}</p>
@@ -155,7 +209,12 @@
           <p>
             <strong>Acepta Mascotas: </strong>{{ i.acceptPets ? "Si" : "No" }}
           </p>
-          <a [routerLink]="'/detalle/' + i.id" [state]="i" class="btn btn-primary w-100">Ver más fotos</a>
+          <a
+            [routerLink]="'/detalle/' + i.id"
+            [state]="i"
+            class="btn btn-primary w-100"
+            >Ver más fotos</a
+          >
         </div>
       </div>
     </div>
