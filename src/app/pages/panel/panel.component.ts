@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -12,15 +12,15 @@ import { PropertiesService } from 'src/app/services/properties.service';
 export class PanelComponent implements OnInit {
   profileForm: FormGroup;
   propertyForm: FormGroup;
-  properties: any = [];
-  files: any = [];
-
+  properties : any = [];
+  files: File[] = [];
+  @ViewChildren('preViewImages', {}) preViewImages? : QueryList<ElementRef<HTMLImageElement>>;
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
     private alert: AlertsService,
     private property: PropertiesService
-  ) {
+  ) {   
     this.profileForm = this.fb.group({
       title: ['', [Validators.required]],
       description: [''],
@@ -57,8 +57,14 @@ export class PanelComponent implements OnInit {
   }
 
   async handleUpdateClick(property: any) {
-    console.log(property);
-    if (property) this.propertyForm.patchValue(property);
+    if (property) {
+      this.propertyForm.patchValue(property);    
+      property.urlPhotos.forEach((url : string, index : number) => {
+        if (this.preViewImages) {
+        this.preViewImages.toArray()[index].nativeElement.src= url;
+        }
+      })
+    } 
   }
 
   async handleRefreshProfile() {
@@ -71,6 +77,11 @@ export class PanelComponent implements OnInit {
   }
 
   async uploadFile(event: Event) {
+
+    this.preViewImages?.forEach((preViewImage)=>{
+      preViewImage.nativeElement.src = ""
+    })
+
     const element = event.currentTarget as HTMLInputElement;
     let fileList: FileList | null = element.files;
     if (fileList) {
@@ -83,7 +94,17 @@ export class PanelComponent implements OnInit {
         return;
       }
       this.files = propertyValues;
+      this.showPreviewImages()
     }
+  }
+
+  showPreviewImages() {
+    this.files.forEach((file,index)=>{
+      if (this.preViewImages) {
+        this.preViewImages.toArray()[index].nativeElement.src = URL.createObjectURL(file)
+      }
+      
+    })
   }
 
   async handleCreateProperty() {
@@ -112,6 +133,10 @@ export class PanelComponent implements OnInit {
   }
 
   async handleClearForm() {
+     this.preViewImages?.forEach((preViewImage)=>{
+      preViewImage.nativeElement.src = ""
+    })
+    this.files = []
     this.propertyForm.reset({
       description: [''],
       location: [''],
